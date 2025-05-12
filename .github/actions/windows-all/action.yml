@@ -55,8 +55,6 @@ runs:
     - name: Prepare dependencies
       shell: bash
       run: |
-        ls "$GITHUB_WORKSPACE"/builder/installed/x64-mingw-dynamic/lib
-        
         cp -r $GITHUB_WORKSPACE/builder/installed/x64-mingw-static/include $GITHUB_WORKSPACE/static_x64/
         for file in "$GITHUB_WORKSPACE"/builder/installed/x64-mingw-static/lib/*.a; do
           cp "$file" "$GITHUB_WORKSPACE/static_x64/lib/"
@@ -66,12 +64,17 @@ runs:
         cp "$GITHUB_WORKSPACE"/svt-av1_x64/local/lib/libSvtAv1Enc.a "$GITHUB_WORKSPACE"/static_x64/lib/libSvtAv1Enc.a
         
         cp -r $GITHUB_WORKSPACE/builder/installed/x64-mingw-dynamic/include $GITHUB_WORKSPACE/dynamic_x64/
-        for file in "$GITHUB_WORKSPACE"/builder/installed/x64-mingw-dynamic/lib/*.dll; do
+        for file in "$GITHUB_WORKSPACE"/builder/installed/x64-mingw-dynamic/lib/*.dll.a; do
+          cp "$file" "$GITHUB_WORKSPACE/dynamic_x64/lib/"
+        done
+
+        for file in "$GITHUB_WORKSPACE"/builder/installed/x64-mingw-dynamic/bin/*.dll; do
           cp "$file" "$GITHUB_WORKSPACE/dynamic_x64/lib/"
         done
         
         cp -r "$GITHUB_WORKSPACE"/svt-av1_x64_dynamic/local/include/svt-av1 "$GITHUB_WORKSPACE"/dynamic_x64/include/
-        cp "$GITHUB_WORKSPACE"/svt-av1_x64_dynamic/local/lib/libSvtAv1Enc.dll "$GITHUB_WORKSPACE"/dynamic_x64/lib/libSvtAv1Enc.dll
+        cp "$GITHUB_WORKSPACE"/svt-av1_x64_dynamic/local/lib/libSvtAv1Enc.dll.a "$GITHUB_WORKSPACE"/dynamic_x64/lib/libSvtAv1Enc.dll.a
+        cp "$GITHUB_WORKSPACE"/svt-av1_x64_dynamic/local/bin/libSvtAv1Enc.dll "$GITHUB_WORKSPACE"/dynamic_x64/lib/libSvtAv1Enc.dll
 
     - name: Build avif
       shell: bash
@@ -95,6 +98,8 @@ runs:
         mv $GITHUB_WORKSPACE/static_x64/lib/libSvtAv1Enc.a $GITHUB_WORKSPACE/static_x64/lib/libsvtav1.a
         cp -r "$GITHUB_WORKSPACE"/avif_x64/include/avif "$GITHUB_WORKSPACE"/static_x64/include/
         cp "$GITHUB_WORKSPACE"/avif_x64/build/libavif.a "$GITHUB_WORKSPACE"/static_x64/lib/libavif.a
+        
+        ls "$GITHUB_WORKSPACE"/avif_x64_dynamic/build/
         
         mv $GITHUB_WORKSPACE/dynamic_x64/lib/libSvtAv1Enc.dll $GITHUB_WORKSPACE/dynamic_x64/lib/libsvtav1.dll
         cp -r "$GITHUB_WORKSPACE"/avif_x64_dynamic/include/avif "$GITHUB_WORKSPACE"/dynamic_x64/include/
