@@ -55,6 +55,8 @@ runs:
     - name: Prepare dependencies
       shell: bash
       run: |
+        ls "$GITHUB_WORKSPACE"/builder/installed/x64-mingw-dynamic/lib
+        
         cp -r $GITHUB_WORKSPACE/builder/installed/x64-mingw-static/include $GITHUB_WORKSPACE/static_x64/
         for file in "$GITHUB_WORKSPACE"/builder/installed/x64-mingw-static/lib/*.a; do
           cp "$file" "$GITHUB_WORKSPACE/static_x64/lib/"

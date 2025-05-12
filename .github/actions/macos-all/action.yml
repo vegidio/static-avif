@@ -72,7 +72,7 @@ runs:
           $GITHUB_WORKSPACE/builder/installed/x64-osx-dynamic/lib/libturbojpeg.dylib \
           $GITHUB_WORKSPACE/builder/installed/x64-osx-dynamic/lib/libyuv.dylib \
           $GITHUB_WORKSPACE/builder/installed/x64-osx-dynamic/lib/libdav1d.dylib \
-          $GITHUB_WORKSPACE/dynamic_arm64/lib
+          $GITHUB_WORKSPACE/dynamic_x64/lib
         
         cp -r $GITHUB_WORKSPACE/builder/installed/arm64-osx/include $GITHUB_WORKSPACE/static_arm64/include
         cp $GITHUB_WORKSPACE/builder/installed/arm64-osx/lib/*.a $GITHUB_WORKSPACE/static_arm64/lib
